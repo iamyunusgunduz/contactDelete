@@ -17,13 +17,14 @@ struct RecycleView: View {
     @State private var arrayFamilyName: [String] = []
     @State private var arrayContactNumber: [String] = []
     @State private var isDeleteAll: Bool = false
+    @State var projectLanguage: String = "en"
     
     var body: some View {
         VStack {
             HStack {
                 HStack {
                     Image(systemName: "chevron.left")
-                    Text("Geri")
+                    Text(projectLanguage == "en" ? "back" : "geri")
                     
                 }.onTapGesture {
                     self.presentationMode.wrappedValue.dismiss()
@@ -39,7 +40,7 @@ struct RecycleView: View {
             HStack {
                 Spacer()
                 Image(systemName: "trash.slash.fill")
-                Text("Tümünü temizle ")
+                Text(projectLanguage == "en" ? "Clear all" : "Tümünü temizle")
                     .bold()
                     .padding(.trailing, 16)
             }.onTapGesture {

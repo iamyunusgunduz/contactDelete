@@ -1,6 +1,6 @@
 //
-//  ContentView.swift
-//  ContactEdit
+//  DeleteContact.swift
+//  
 //
 //  Created by Yunus Gündüz on 12.04.2024.
 //
@@ -18,7 +18,7 @@ struct DeleteContact: View {
     @State private var arrayGivenName: [String] = []
     @State private var arrayFamilyName: [String] = []
     @State private var arrayContactNumber: [String] = []
-    
+    @State var projectLanguage: String = "en"
  
     
     var body: some View {
@@ -26,14 +26,15 @@ struct DeleteContact: View {
             HStack {
                 HStack {
                     Image(systemName: "chevron.left")
-                    Text("Geri")
+                    Text(projectLanguage == "en" ? "back" : "geri")
                 }.onTapGesture {
                     self.presentationMode.wrappedValue.dismiss()
                 }
                 
                 Spacer()
                 HStack {
-                    Text("Kisi Listesi \(contacts.count)").bold()
+                    Text(projectLanguage == "en" ? "Contact List" : "Kişi Listesi").bold()
+                    Text("\(contacts.count)").bold()
                 }.padding(.trailing, 4)
                 
              
@@ -177,6 +178,7 @@ struct DeleteContact: View {
  
     
     func getContactList() {
+        DispatchQueue.global().async {
         let CNStore = CNContactStore()
         
         switch CNContactStore.authorizationStatus(for: .contacts) {
@@ -226,6 +228,7 @@ struct DeleteContact: View {
         @unknown default:
             print("!-!")
         }
+    }
     }
     
 //    func deleteNumber(contact: CNContact, phoneNumberIndex: Int) {
